@@ -28,6 +28,7 @@ public class Main {
 		TreeIterator<EObject> iterator = s.eAllContents();
 		int i = 0;
 		while (iterator.hasNext()) {
+			i++;
 			EObject content = iterator.next();
 			if(content instanceof State) {
 				State state = (State) content;
@@ -37,7 +38,6 @@ public class Main {
 				}
 				
 				else {
-					i++;
 					System.out.println("Unknown_" + i);
 				}
 				
