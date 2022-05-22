@@ -60,12 +60,12 @@ public class Main {
 				System.out.println("\tSystem.out.println(\"" + varDef.getName().toUpperCase().charAt(0) + " =\" + s.getSCInterface.get" +
 						varDef.getName().substring(0,1).toUpperCase() + varDef.getName().substring(1) + "());");
 			}
+			System.out.println("}");
 //			if(content instanceof EventDefinition) {
 //				EventDefinition eventDef = (EventDefinition) content;
 //				System.out.println(eventDef.getName());
 //			}
 		}
-		System.out.println("}");
 		
 		
 		// Transforming the model into a graph representation

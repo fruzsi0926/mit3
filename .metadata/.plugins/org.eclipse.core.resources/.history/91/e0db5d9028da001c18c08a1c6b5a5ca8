@@ -65,7 +65,6 @@ public class Main {
 //				System.out.println(eventDef.getName());
 //			}
 		}
-		System.out.println("}");
 		
 		
 		// Transforming the model into a graph representation

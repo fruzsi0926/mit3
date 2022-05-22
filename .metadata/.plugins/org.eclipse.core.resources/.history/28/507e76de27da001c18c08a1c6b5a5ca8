@@ -30,7 +30,6 @@ public class Main {
 		Statechart s = (Statechart) root;
 		TreeIterator<EObject> iterator = s.eAllContents();
 		int i = 0;
-		System.out.println("public static void print(IExampleStatemachine s) {");
 		while (iterator.hasNext()) {
 			EObject content = iterator.next();
 //			if(content instanceof State) {
@@ -58,14 +57,13 @@ public class Main {
 				VariableDefinition varDef = (VariableDefinition) content;
 //				System.out.println(varDef.getName());
 				System.out.println("\tSystem.out.println(\"" + varDef.getName().toUpperCase().charAt(0) + " =\" + s.getSCInterface.get" +
-						varDef.getName().substring(0,1).toUpperCase() + varDef.getName().substring(1) + "());");
+						varDef.getName().substring(0,1).toUpperCase() + varDef.getName().substring(1) + "(}};");
 			}
-//			if(content instanceof EventDefinition) {
-//				EventDefinition eventDef = (EventDefinition) content;
-//				System.out.println(eventDef.getName());
-//			}
+			if(content instanceof EventDefinition) {
+				EventDefinition eventDef = (EventDefinition) content;
+				System.out.println(eventDef.getName());
+			}
 		}
-		System.out.println("}");
 		
 		
 		// Transforming the model into a graph representation
