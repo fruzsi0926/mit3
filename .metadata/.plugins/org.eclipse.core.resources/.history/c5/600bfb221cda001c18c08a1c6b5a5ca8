@@ -6,7 +6,7 @@ import hu.bme.mit.yakindu.analysis.RuntimeService;
 import hu.bme.mit.yakindu.analysis.TimerService;
 import hu.bme.mit.yakindu.analysis.example.ExampleStatemachine;
 import hu.bme.mit.yakindu.analysis.example.IExampleStatemachine;
-import java.util.Scanner;
+
 
 
 public class RunStatechart {
@@ -17,39 +17,14 @@ public class RunStatechart {
 		RuntimeService.getInstance().registerStatemachine(s, 200);
 		s.init();
 		s.enter();
-//		s.runCycle();
-//		print(s);
-//		s.raiseStart();
-//		s.runCycle();
-//		System.in.read();
-//		s.raiseWhite();
-//		s.runCycle();
-//		print(s);
-		
-		boolean end = false;
-		Scanner getInput = new Scanner(System.in);
-		
-		while(!end) {
-			String in = getInput.nextLine();
-			switch(in) {
-			case "black":
-				s.raiseBlack();
-				break;
-			case "white":
-				s.raiseWhite();
-				break;
-			case "start":
-				s.raiseStart();
-				break;
-			case "exit":
-				end = true;
-				break;
-			default:
-				break;
-			}
-			print(s);
-			s.runCycle();
-		}
+		s.runCycle();
+		print(s);
+		s.raiseStart();
+		s.runCycle();
+		System.in.read();
+		s.raiseWhite();
+		s.runCycle();
+		print(s);
 		System.exit(0);
 	}
 
