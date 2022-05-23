@@ -1,12 +1,13 @@
 package hu.bme.mit.yakindu.analysis.workhere;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 import hu.bme.mit.yakindu.analysis.RuntimeService;
 import hu.bme.mit.yakindu.analysis.TimerService;
 import hu.bme.mit.yakindu.analysis.example.ExampleStatemachine;
 import hu.bme.mit.yakindu.analysis.example.IExampleStatemachine;
-import java.util.Scanner;
+
 
 
 public class RunStatechart {
@@ -15,6 +16,7 @@ public class RunStatechart {
 		ExampleStatemachine s = new ExampleStatemachine();
 		s.setTimer(new TimerService());
 		RuntimeService.getInstance().registerStatemachine(s, 200);
+		
 		s.init();
 		s.enter();
 //		s.runCycle();
@@ -32,14 +34,14 @@ public class RunStatechart {
 		while(!end) {
 			String in = getInput.nextLine();
 			switch(in) {
+			case "start":
+				s.raiseStart();
+				break;
 			case "black":
 				s.raiseBlack();
 				break;
 			case "white":
 				s.raiseWhite();
-				break;
-			case "start":
-				s.raiseStart();
 				break;
 			case "exit":
 				end = true;
@@ -52,7 +54,6 @@ public class RunStatechart {
 		}
 		System.exit(0);
 	}
-
 	public static void print(IExampleStatemachine s) {
 		System.out.println("W = " + s.getSCInterface().getWhiteTime());
 		System.out.println("B = " + s.getSCInterface().getBlackTime());

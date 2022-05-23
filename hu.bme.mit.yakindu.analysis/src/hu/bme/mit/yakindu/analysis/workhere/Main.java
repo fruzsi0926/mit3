@@ -29,10 +29,81 @@ public class Main {
 		// Reading model
 		Statechart s = (Statechart) root;
 		TreeIterator<EObject> iterator = s.eAllContents();
-		int i = 0;
-		System.out.println("public static void print(IExampleStatemachine s) {");
-		while (iterator.hasNext()) {
+		
+		System.out.println("package hu.bme.mit.yakindu.analysis.workhere;\r\n" + 
+				"\r\n" + 
+				"import java.io.IOException;\r\n" + 
+				"import java.util.Scanner;\r\n" + 
+				"\r\n" + 
+				"import hu.bme.mit.yakindu.analysis.RuntimeService;\r\n" + 
+				"import hu.bme.mit.yakindu.analysis.TimerService;\r\n" + 
+				"import hu.bme.mit.yakindu.analysis.example.ExampleStatemachine;\r\n" + 
+				"import hu.bme.mit.yakindu.analysis.example.IExampleStatemachine;\r\n" + 
+				"\r\n" + 
+				"\r\n" + 
+				"\r\n" + 
+				"public class RunStatechart {\r\n" + 
+				"	\r\n" + 
+				"	public static void main(String[] args) throws IOException {\r\n" + 
+				"		ExampleStatemachine s = new ExampleStatemachine();\r\n" + 
+				"		s.setTimer(new TimerService());\r\n" + 
+				"		RuntimeService.getInstance().registerStatemachine(s, 200);\r\n" + 
+				"		\r\n" + 
+				"		s.init();\r\n" + 
+				"		s.enter();\r\n" + 
+				"		\r\n" +
+				"		boolean end = false;\r\n" +
+				"		Scanner getInput = new Scanner(System.in);\r\n" + 
+				"		\r\n" + 
+				"		while(!end) {\r\n" + 
+				"			String in = getInput.nextLine();\r\n" + 
+				"			switch(in) {");
+		
+		while(iterator.hasNext()) {
 			EObject content = iterator.next();
+			if(content instanceof EventDefinition) {
+				EventDefinition eventDef = (EventDefinition) content;
+				System.out.println(
+				"			case " + '"' + eventDef.getName() + '"' + ":\n" + 
+				"				s.raise" + eventDef.getName().substring(0,1).toUpperCase() + eventDef.getName().substring(1) +"();"+ "\n"+
+				"				break;"
+				);
+			}
+		}
+		
+		System.out.println(
+				"			case \"exit\":\r\n" + 
+				"				end = true;\r\n" +  
+				"				break;\r\n" +
+				"			default:\r\n" +   
+				"				break;\r\n" + 
+				"			}\r\n" + 
+				"			print(s);\n"+
+				"			s.runCycle();\n"+		
+				"		}\n"+	
+				"		System.exit(0);\n"+
+				"	}\n" + 
+				"	public static void print(IExampleStatemachine s) {");
+		
+		iterator = s.eAllContents();
+		
+		while(iterator.hasNext()) {
+			EObject content = iterator.next();
+			if(content instanceof VariableDefinition) {
+				VariableDefinition varDef = (VariableDefinition) content;
+				System.out.println( "		System.out.println(" + '"' + varDef.getName().toUpperCase().charAt(0) + " = " + '"' + " + s.getSCInterface()." +
+				"get" + varDef.getName().substring(0,1).toUpperCase() + varDef.getName().substring(1) + "());");
+			}
+		}
+	
+		System.out.println(
+				"	}\n"
+				+ "}");
+		
+//		int i = 0;
+//		System.out.println("public static void print(IExampleStatemachine s) {");
+//		while (iterator.hasNext()) {
+//			EObject content = iterator.next();
 //			if(content instanceof State) {
 //				State state = (State) content;
 //				
@@ -54,18 +125,19 @@ public class Main {
 //				Transition transition = (Transition) content;
 //				System.out.println(transition.getSource().getName() + " -> " + transition.getTarget().getName());
 //			}
-			if(content instanceof VariableDefinition) {
-				VariableDefinition varDef = (VariableDefinition) content;
+//			if(content instanceof VariableDefinition) {
+//				VariableDefinition varDef = (VariableDefinition) content;
 //				System.out.println(varDef.getName());
-				System.out.println("\tSystem.out.println(\"" + varDef.getName().toUpperCase().charAt(0) + " =\" + s.getSCInterface.get" +
-						varDef.getName().substring(0,1).toUpperCase() + varDef.getName().substring(1) + "());");
-			}
+//				System.out.println("\tSystem.out.println(\"" + varDef.getName().toUpperCase().charAt(0) + " =\" + s.getSCInterface.get" +
+//						varDef.getName().substring(0,1).toUpperCase() + varDef.getName().substring(1) + "());");
+//			}
+//			
 //			if(content instanceof EventDefinition) {
 //				EventDefinition eventDef = (EventDefinition) content;
-//				System.out.println(eventDef.getName());
+//				System.out.println(evenDef.getName);
 //			}
-		}
-		System.out.println("}");
+//			System.out.println("}");
+//		}
 		
 		
 		// Transforming the model into a graph representation
